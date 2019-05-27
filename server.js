@@ -37,6 +37,14 @@ app.get('/create',(req,res)=>{
 	return res.sendFile(__dirname+ '/create.html');
 })
 
+app.delete('/quotes', (req, res) => {
+  db.collection('quotes').findOneAndDelete({name: req.body.name},
+  (err, result) => {
+    if (err) return res.send(500, err)
+    res.send({message: 'A darth vadar quote got deleted'})
+  })
+})
+
 app.put('/quotes', (req, res) => {
   db.collection('quotes')
   .findOneAndUpdate({name: 'Yoda'}, {
